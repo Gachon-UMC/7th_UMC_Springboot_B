@@ -5,12 +5,9 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import umc.study.domain.enums.Review_Scope;
 
-import java.math.BigInteger;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -22,6 +19,7 @@ public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -34,16 +32,18 @@ public class Review {
 
     private String review_img;
 
+    @Column(length = 500)
     private String review_content;
 
-    private Integer review_scope;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Review_Scope review_scope;
 
     @CreatedDate
+    @Column(nullable = false, columnDefinition = "DATETIME(6)")
     private LocalDateTime createdAt;
 
     @LastModifiedDate
+    @Column(nullable = false, columnDefinition = "DATETIME(6)")
     private LocalDateTime updatedAt;
-
-    @OneToMany(mappedBy = "review",cascade=CascadeType.ALL)
-    private List<UserMission> userMissionList = new ArrayList<>();
 }

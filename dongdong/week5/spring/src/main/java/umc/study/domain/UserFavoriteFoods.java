@@ -12,6 +12,7 @@ public class UserFavoriteFoods {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
