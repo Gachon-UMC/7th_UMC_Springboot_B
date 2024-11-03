@@ -10,7 +10,6 @@ import umc.study.domain.mapping.MemberAgree;
 import umc.study.domain.mapping.MemberFood;
 import umc.study.domain.mapping.MemberMission;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,21 +57,21 @@ public class Member extends BaseEntity {
     private UserStatus status;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<Review> reviewList = new ArrayList<>();
+    private final List<Review> reviewList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<MemberMission> memberMissionList = new ArrayList<>();
+    private final List<MemberMission> memberMissionList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<MemberFood> memberFoodList = new ArrayList<>();
+    private final List<MemberFood> memberFoodList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<MemberAgree> memberAgreeList = new ArrayList<>();
+    private final List<MemberAgree> memberAgreeList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<Question> questionList = new ArrayList<>();
+    private final List<Question> questionList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<ReviewReply> reviewReplyList = new ArrayList<>();
+    private final List<ReviewReply> reviewReplyList = new ArrayList<>();
 
 }
