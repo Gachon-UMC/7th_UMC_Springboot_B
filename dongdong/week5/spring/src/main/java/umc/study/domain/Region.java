@@ -4,40 +4,25 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import umc.study.domain.enums.ReviewScope;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@EntityListeners(AuditingEntityListener.class)
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Review {
+public class Region {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id")
-    private Store store;
-
-    private String reviewImg;
-
-    @Column(length = 500)
-    private String reviewContent;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private ReviewScope reviewScope;
+    @Column(nullable = false, length = 20, unique = true)
+    private String name;
 
     @CreatedDate
     @Column(nullable = false, columnDefinition = "DATETIME(6)")
@@ -46,4 +31,8 @@ public class Review {
     @LastModifiedDate
     @Column(nullable = false, columnDefinition = "DATETIME(6)")
     private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "region",cascade=CascadeType.ALL)
+    private List<Store> storeList = new ArrayList<>();
 }
+

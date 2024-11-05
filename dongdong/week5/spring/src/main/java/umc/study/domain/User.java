@@ -6,6 +6,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import umc.study.domain.enums.Gender;
+import umc.study.domain.enums.Status;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,7 +24,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
-    private Integer id;
+    private Long id;
 
     @Column(nullable = false, length = 20)
     private String user_name;
@@ -32,26 +33,26 @@ public class User {
     private Gender gender;
 
     @Column(nullable = false)
-    private LocalDate user_birth;
+    private LocalDate userBirth;
 
-    private String user_address;
+    private String userAddress;
 
     @Column(nullable = false, columnDefinition = "boolean default false")
-    private Boolean user_login;
+    private Boolean userLogin;
 
     @Column(nullable = false, columnDefinition = "integer default 0")
-    private Integer user_point;
+    private Integer userPoint;
 
-    @Column(length = 15, nullable = false, columnDefinition = "VARCHAR(15) DEFAULT 'ACTIVE'")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.ACTIVE;
 
     private LocalDate inactive_date;
 
     @Column(unique = true)
-    private String user_email;
+    private String userEmail;
 
     @Column(unique = true)
-    private String user_phone;
+    private String userPhone;
 
     @CreatedDate
     @Column(nullable = false, columnDefinition = "DATETIME(6)")

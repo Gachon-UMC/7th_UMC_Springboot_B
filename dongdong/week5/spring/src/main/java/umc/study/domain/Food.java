@@ -16,10 +16,10 @@ public class Food {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
-    private Integer id;
+    private Long id;
 
     @Column(nullable = false, length = 50, unique = true)
-    private String food_name;
+    private String foodName;
 
     @OneToMany(mappedBy = "food",cascade=CascadeType.ALL)
     private List<Store> storeList = new ArrayList<>();

@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import umc.study.domain.enums.Status;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -24,20 +25,24 @@ public class Store {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto_Increment + 인덱스 유지(앞의 인덱스가 삭제되어도)
     @Column(nullable = false)
-    private Integer id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "food_id")
     private Food food;
 
-    @Column(nullable = false, length = 50)
-    private String store_name;
+    @Column(nullable = false)
+    private String address;
 
-    @Column(nullable = false, length = 20)
-    private String store_location;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "region_id")
+    private Region region;
+
+    @Column(nullable = false, length = 50)
+    private String storeName;
 
     @Column(precision = 10, scale = 2, columnDefinition = "DECIMAL(10, 2) DEFAULT 0.00")
-    private BigDecimal store_scope;
+    private BigDecimal storeScope;
 
     @CreatedDate
     @Column(nullable = false, columnDefinition = "DATETIME(6)")
@@ -49,12 +54,24 @@ public class Store {
 
     private LocalDate inactiveDate;
 
-    @Column(length = 15, nullable = false, columnDefinition = "VARCHAR(15) DEFAULT 'ACTIVE'")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.ACTIVE;
 
     @OneToMany(mappedBy = "store",cascade=CascadeType.ALL)
     private List<Mission> missionList = new ArrayList<>();
 
     @OneToMany(mappedBy = "store",cascade=CascadeType.ALL)
     private List<Review> reviewList = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Store{" +
+                "id=" + id +
+                ", name='" + storeName + '\'' +
+                ", address='" + address + '\'' +
+                ", score=" + storeScope +
+                ", region=" + (region != null ? region.getName() : "N/A") + // region의 이름 출력
+                '}';
+    }
 }
+//id, store_name, address, store_scope, region_id, created_at, updated_at)

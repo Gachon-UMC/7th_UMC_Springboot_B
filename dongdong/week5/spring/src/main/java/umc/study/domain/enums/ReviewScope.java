@@ -1,6 +1,6 @@
 package umc.study.domain.enums;
 
-public enum Review_Scope {
+public enum ReviewScope {
     ONE(1),
     TWO(2),
     THREE(3),
@@ -9,7 +9,7 @@ public enum Review_Scope {
 
     private final int value;
 
-    Review_Scope(int value) {
+    ReviewScope(int value) {
         this.value = value;
     }
 
