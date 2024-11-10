@@ -33,5 +33,11 @@ public class StoreRepositoryImpl implements StoreRepositoryCustom{
                 .selectFrom(store)
                 .where(predicate)
                 .fetch();
+
+
+//        List<Store> fetch = jpaQueryFactory
+//                .selectFrom(store)
+//                .where(store.name.eq(name), store.score.goe(4.0f))
+//                .fetch();
     }
 }
