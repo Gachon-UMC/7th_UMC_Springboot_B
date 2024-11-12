@@ -53,6 +53,9 @@ dependencies {
 	implementation 'org.springdoc:springdoc-openapi-data-rest:1.6.9'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// ANTLR 툴과 런타임 버전이 맞추깅
+	implementation 'org.antlr:antlr4:4.13.0'
 }
 
 //sourceSets {

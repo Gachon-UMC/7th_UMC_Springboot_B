@@ -9,6 +9,7 @@ import umc.study.domain.Store;
 
 import java.util.List;
 
+// 이 놈이 실질적인 QueryDSL에서 필터링 조건을 담은 , 즉 동적 쿼리 본체
 @Repository
 @RequiredArgsConstructor
 public class StoreRepositoryImpl implements StoreRepositoryCustom{

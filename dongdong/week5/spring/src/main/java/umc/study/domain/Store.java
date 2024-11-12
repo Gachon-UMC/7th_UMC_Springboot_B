@@ -8,6 +8,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import umc.study.domain.enums.Status;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -44,6 +45,20 @@ public class Store {
     @Column(precision = 10, scale = 2, columnDefinition = "DECIMAL(10, 2) DEFAULT 0.00")
     private BigDecimal storeScope;
 
+    // 리뷰들의 평균값을 계산하여 storeScope를 업데이트하는 메서드
+    public void updateStoreScope() {
+        if (reviewList.isEmpty()) {
+            this.storeScope = BigDecimal.ZERO;
+        } else {
+            BigDecimal total = BigDecimal.ZERO;
+            for (Review review : reviewList) {
+                total = total.add(new BigDecimal(review.getReviewScope().getValue()));
+            }
+            BigDecimal average = total.divide(new BigDecimal(reviewList.size()), 2, RoundingMode.HALF_UP);
+            this.storeScope = average;
+        }
+    }
+
     @CreatedDate
     @Column(nullable = false, columnDefinition = "DATETIME(6)")
     private LocalDateTime createdAt;
@@ -63,15 +78,14 @@ public class Store {
     @OneToMany(mappedBy = "store",cascade=CascadeType.ALL)
     private List<Review> reviewList = new ArrayList<>();
 
-    @Override
-    public String toString() {
-        return "Store{" +
-                "id=" + id +
-                ", name='" + storeName + '\'' +
-                ", address='" + address + '\'' +
-                ", score=" + storeScope +
-                ", region=" + (region != null ? region.getName() : "N/A") + // region의 이름 출력
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Store{" +
+//                "id=" + id +
+//                ", name='" + storeName + '\'' +
+//                ", address='" + address + '\'' +
+//                ", score=" + storeScope +
+//                ", region=" + (region != null ? region.getName() : "N/A") + // region의 이름 출력
+//                '}';
+//    }
 }
-//id, store_name, address, store_scope, region_id, created_at, updated_at)

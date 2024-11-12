@@ -9,6 +9,7 @@ import umc.study.repository.StoreRepository.StoreRepository;
 import java.util.List;
 import java.util.Optional;
 
+// 이제 여기서 실제로 StoreRepository를 사용해 정의한 메서드를 구현하는 거 즉, 실행!
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
