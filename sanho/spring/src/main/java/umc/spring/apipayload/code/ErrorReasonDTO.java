@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 @Builder
-public class ErrorReasonDTO {
+public class ErrorReasonDTO { // 에러 내용을 보여주는 Dto
 
     private HttpStatus httpStatus;
 
@@ -14,5 +14,5 @@ public class ErrorReasonDTO {
     private final String code;
     private final String message;
 
-    public boolean getIsSuccess(){return isSuccess;}
+    public boolean getIsSuccess() {return isSuccess;}
 }

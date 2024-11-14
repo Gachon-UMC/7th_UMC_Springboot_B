@@ -59,18 +59,21 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
         return handleExceptionInternalFalse(e, ErrorStatus._INTERNAL_SERVER_ERROR, HttpHeaders.EMPTY, ErrorStatus._INTERNAL_SERVER_ERROR.getHttpStatus(),request, e.getMessage());
     }
 
-    @ExceptionHandler(value = GeneralException.class)
+    @ExceptionHandler(value = GeneralException.class) // GeneralException을 상속 받은 예외들도 다 처리가 됨
     public ResponseEntity onThrowException(GeneralException generalException, HttpServletRequest request) {
         ErrorReasonDTO errorReasonHttpStatus = generalException.getErrorReasonHttpStatus();
         return handleExceptionInternal(generalException,errorReasonHttpStatus,null,request);
     }
 
     private ResponseEntity<Object> handleExceptionInternal(Exception e, ErrorReasonDTO reason,
-                                                           HttpHeaders headers, HttpServletRequest request) {
+                                                           HttpHeaders headers, HttpServletRequest request) {  // 여기서 발생한 예외에 대한 응답을 보냄.
 
+        // 응답 본문 생성
         ApiResponse<Object> body = ApiResponse.onFailure(reason.getCode(),reason.getMessage(),null);
 //        e.printStackTrace();
 
+
+        // 실제로 생성된 예외 응답을 클라이언트에게 반환하는 역할
         WebRequest webRequest = new ServletWebRequest(request);
         return super.handleExceptionInternal(
                 e,

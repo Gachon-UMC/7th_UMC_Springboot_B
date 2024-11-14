@@ -5,8 +5,8 @@ import umc.spring.web.dto.TempResponse;
 public class TempConverter { // TempResponse.TempTestDTO의 형태로 바꿔주는 역할
 
     public static TempResponse.TempTestDTO toTempTestDTO(){   // static으로 선언
-        return TempResponse.TempTestDTO.builder()
-                .testString("This is Test!")
+        return TempResponse.TempTestDTO.builder()   // 응답도 builder 패턴으로 생성
+                .testString("This is Test!")  // 이게 result 값
                 .build();
     }
 

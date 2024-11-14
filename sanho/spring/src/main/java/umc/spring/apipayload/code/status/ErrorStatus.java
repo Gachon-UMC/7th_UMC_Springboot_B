@@ -33,7 +33,7 @@ public enum ErrorStatus implements BaseErrorCode {
     private final String message;
 
     @Override
-    public ErrorReasonDTO getReason() {
+    public ErrorReasonDTO getReason() { // enum에 등록된 에러 코드를 Dto의 형태로 보내주는 역할
         return ErrorReasonDTO.builder()
                 .message(message)
                 .code(code)
@@ -42,7 +42,7 @@ public enum ErrorStatus implements BaseErrorCode {
     }
 
     @Override
-    public ErrorReasonDTO getReasonHttpStatus() {
+    public ErrorReasonDTO getReasonHttpStatus() { // GenereationException에서 쓰는데, 이 ErrorStatus의 message, code, isSuccss, httpStatus를 ErrorReasonDTO 형식에 맞게 보내줌
         return ErrorReasonDTO.builder()
                 .message(message)
                 .code(code)

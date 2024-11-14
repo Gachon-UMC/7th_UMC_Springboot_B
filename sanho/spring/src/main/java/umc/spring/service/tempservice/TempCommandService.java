@@ -1,4 +1,4 @@
 package umc.spring.service.tempservice;
 
-public class TempCommandService {
+public interface TempCommandService {
 }

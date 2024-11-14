@@ -1,6 +1,6 @@
 package umc.spring.apipayload.code;
 
-public interface BaseErrorCode {
+public interface BaseErrorCode { // ErrorStatus 코드를 위한 인터페이스
 
     ErrorReasonDTO getReason();
 

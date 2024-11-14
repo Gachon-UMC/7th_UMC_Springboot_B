@@ -27,7 +27,7 @@ public enum SuccessStatus implements BaseCode {
     }
 
     @Override
-    public ReasonDTO getReasonHttpStatus() { // of를 위한 코드
+    public ReasonDTO getReasonHttpStatus() { // of를 위한 코드 - 이 Status의 message, code, isSuccess, httpStatus를 ReasonDTO 형식에 맞게 보내줌
         return ReasonDTO.builder()
                 .message(message)
                 .code(code)

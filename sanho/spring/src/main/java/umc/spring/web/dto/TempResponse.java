@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-public class TempResponse { // DTO
+public class TempResponse { // DTO 묶음 클래스
 
     @Builder
     @Getter
