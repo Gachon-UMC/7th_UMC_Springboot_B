@@ -34,6 +34,7 @@ public class Mission extends BaseEntity {
     @Column(columnDefinition = "VARCHAR(15) DEFAULT 'CHALLENGING'")
     private MissionStatus missionStatus;
 
+
     private LocalDateTime deadline;
 
     @ManyToOne(fetch = FetchType.LAZY)

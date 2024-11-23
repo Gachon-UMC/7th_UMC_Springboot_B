@@ -1,24 +1,22 @@
-package umc.study.web.dto.MemberDTO;
+package umc.study.web.dto.MemberMissionDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import umc.study.domain.enums.MissionStatus;
-import umc.study.web.dto.StoreDTO.StoreResponseDTO;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class MemberResponseDTO {
+public class MemberMissionResponseDTO {
 
     @Builder
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
     public static class JoinResultDTO{
-        Long memberId;
+        Long memberId;  // missionId?
         LocalDateTime createdAt;
     }
 
@@ -26,8 +24,8 @@ public class MemberResponseDTO {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class MyReviewPreviewListDTO{
-        List<MyReviewPreviewDTO> myReviewList;
+    public static class MemberMissionPreviewListDTO{
+        List<MemberMissionPreviewDTO> memberMissionList;
         Integer listSize;
         Integer totalPage;
         Long totalElements;
@@ -35,16 +33,14 @@ public class MemberResponseDTO {
         Boolean isLast;
     }
 
-
     @Builder
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class MyReviewPreviewDTO{
-        String ownerNickname;
-        Float rating;
+    public static class MemberMissionPreviewDTO{
+        String storeName;
         String content;
-        LocalDate createdAt;
+        Integer reward;
+        MissionStatus missionStatus;
     }
-
 }
