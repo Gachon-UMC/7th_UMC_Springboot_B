@@ -5,5 +5,5 @@ import umc.spring.web.dto.ReviewRequestDTO;
 
 public interface ReviewCommandService {
 
-    Review addReview(ReviewRequestDTO.AddReviewDto request);
+    Review addReview(ReviewRequestDTO.AddReviewDto request); // week8 미션
 }

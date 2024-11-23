@@ -14,7 +14,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Mission extends BaseEntity {
+public class Mission extends BaseEntity { // week8 미션
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

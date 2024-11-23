@@ -11,7 +11,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = MemberExistValidator.class)
 @Target( { ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ExistMember {
+public @interface ExistMember { // week8 미션
 
     String message() default "해당하는 멤버가 존재하지 않습니다.";
     Class<?>[] groups() default {};

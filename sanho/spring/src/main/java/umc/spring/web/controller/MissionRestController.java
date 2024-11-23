@@ -20,7 +20,7 @@ import umc.spring.web.dto.ReviewResponseDTO;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/missons")
-public class MissionRestController {
+public class MissionRestController { // week8 미션
 
     private final MissionCommandService missionCommandService;
 

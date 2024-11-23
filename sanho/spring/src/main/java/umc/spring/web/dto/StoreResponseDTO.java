@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-public class StoreResponseDTO {
+public class StoreResponseDTO { // week8 미션
 
     @Builder
     @Getter

@@ -16,7 +16,7 @@ import umc.spring.web.dto.StoreResponseDTO;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/stores")
-public class StoreRestController {
+public class StoreRestController { // week8 미션
 
     private final StoreCommandService storeCommandService;
 

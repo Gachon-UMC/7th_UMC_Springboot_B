@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = RegionExistValidator.class)
 @Target( { ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ExistRegion {
+public @interface ExistRegion { // week8 미션
 
     String message() default "해당하는 지역이 존재하지 않습니다.";
     Class<?>[] groups() default {};

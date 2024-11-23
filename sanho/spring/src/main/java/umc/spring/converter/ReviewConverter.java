@@ -8,7 +8,7 @@ import umc.spring.web.dto.ReviewResponseDTO;
 import java.time.LocalDateTime;
 
 
-public class ReviewConverter {
+public class ReviewConverter { // week8 미션
 
     public static ReviewResponseDTO.AddReviewResultDTO toAddResultDTO(Review review){
         return ReviewResponseDTO.AddReviewResultDTO.builder()

@@ -8,7 +8,7 @@ import umc.spring.validation.annotation.ExistCategories;
 
 import java.util.List;
 
-public class MemberRequestDTO {
+public class MemberRequestDTO { // week8 미션
 
     @Getter
     public static class JoinDto{

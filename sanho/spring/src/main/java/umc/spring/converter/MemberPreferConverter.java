@@ -6,7 +6,7 @@ import umc.spring.domain.mapping.MemberPrefer;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MemberPreferConverter {
+public class MemberPreferConverter { // week8 미션
 
     public static List<MemberPrefer> toMemberPreferList(List<FoodCategory> foodCategoryList){
 

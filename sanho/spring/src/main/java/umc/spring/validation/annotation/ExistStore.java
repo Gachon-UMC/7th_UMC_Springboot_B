@@ -11,7 +11,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = StoreExistValidator.class)
 @Target( { ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ExistStore {
+public @interface ExistStore { // week8 미션
 
     String message() default "해당하는 가게가 존재하지 않습니다.";
     Class<?>[] groups() default {};

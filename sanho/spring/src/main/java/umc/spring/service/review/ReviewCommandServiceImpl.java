@@ -17,7 +17,7 @@ import umc.spring.web.dto.ReviewRequestDTO;
 
 @Service
 @RequiredArgsConstructor
-public class ReviewCommandServiceImpl implements ReviewCommandService {
+public class ReviewCommandServiceImpl implements ReviewCommandService { // week8 미션
 
     private final ReviewRepository reviewRepository;
     private final MemberRepository memberRepository;

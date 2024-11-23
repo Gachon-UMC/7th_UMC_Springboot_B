@@ -11,7 +11,7 @@ import umc.spring.domain.common.BaseEntity;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class MemberPrefer extends BaseEntity {
+public class MemberPrefer extends BaseEntity { // week8 미션
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

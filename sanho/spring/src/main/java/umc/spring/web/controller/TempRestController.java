@@ -14,7 +14,7 @@ import umc.spring.web.dto.TempResponse;
 @RequestMapping("/temp")
 @RequiredArgsConstructor
 public class TempRestController { // @RestController라 json 형태로 바로 화면으로 값을 뿌림
-
+    // week8 미션
     private final TempQueryService tempQueryService;
 
     @GetMapping("/test")

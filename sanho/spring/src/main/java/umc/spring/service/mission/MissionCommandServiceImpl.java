@@ -28,7 +28,7 @@ public class MissionCommandServiceImpl implements MissionCommandService {
 
     @Override
     @Transactional
-    public Mission addMission(MissionRequestDTO.AddMissionDTO request) {
+    public Mission addMission(MissionRequestDTO.AddMissionDTO request) { // week8 미션
 
         Store store = storeRepository.findById(request.getStoreId())
                 .orElseThrow(() -> new MissionHandler(ErrorStatus.MEMBER_NOT_FOUND));

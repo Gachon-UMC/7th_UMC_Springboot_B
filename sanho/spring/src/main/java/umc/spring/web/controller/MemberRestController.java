@@ -16,7 +16,7 @@ import umc.spring.web.dto.MemberResponseDTO;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/members")
-public class MemberRestController {
+public class MemberRestController { // week8 미션
 
     private final MemberCommandService memberCommandService;
 

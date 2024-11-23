@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 
-public class StoreConverter {
+public class StoreConverter { // week8 미션
 
     public static StoreResponseDTO.AddStoreDTO toAddResultDTO(Store store){
         return StoreResponseDTO.AddStoreDTO.builder()

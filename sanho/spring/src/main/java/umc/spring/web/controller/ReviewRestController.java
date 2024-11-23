@@ -16,7 +16,7 @@ import umc.spring.web.dto.ReviewResponseDTO;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/reviews")
-public class ReviewRestController {
+public class ReviewRestController { // week8 미션
 
     private final ReviewCommandService reviewCommandService;
 

@@ -15,7 +15,7 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class MemberExistValidator implements ConstraintValidator<ExistMember, List<Long>> { // 여기서 바로 repository에 접근하면 안 됨
-
+    // week8 미션
     private final MemberRepository memberRepository;
 
     @Override

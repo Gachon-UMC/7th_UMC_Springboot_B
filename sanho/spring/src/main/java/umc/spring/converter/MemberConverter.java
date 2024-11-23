@@ -8,7 +8,7 @@ import umc.spring.web.dto.MemberResponseDTO;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class MemberConverter {
+public class MemberConverter { // week8 미션
 
     public static MemberResponseDTO.JoinResultDTO toJoinResultDTO(Member member){
         return MemberResponseDTO.JoinResultDTO.builder()

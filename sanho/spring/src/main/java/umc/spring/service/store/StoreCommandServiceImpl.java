@@ -16,7 +16,7 @@ import umc.spring.web.dto.StoreRequestDTO;
 
 @Service
 @RequiredArgsConstructor
-public class StoreCommandServiceImpl implements StoreCommandService {
+public class StoreCommandServiceImpl implements StoreCommandService { // week8 미션
 
     private final StoreRepository storeRepository;
     private final RegionRepository regionRepository;

@@ -7,7 +7,7 @@ import umc.spring.validation.annotation.ExistMember;
 import umc.spring.validation.annotation.ExistStore;
 
 
-public class ReviewRequestDTO {
+public class ReviewRequestDTO { // week8 미션
 
     @Getter
     public static class AddReviewDto {

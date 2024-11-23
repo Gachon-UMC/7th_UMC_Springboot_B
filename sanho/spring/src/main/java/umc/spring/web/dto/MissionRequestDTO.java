@@ -8,7 +8,7 @@ import umc.spring.validation.annotation.ExistMemberMission;
 import java.time.LocalDate;
 import java.util.List;
 
-public class MissionRequestDTO {
+public class MissionRequestDTO { // week8 미션
 
     @Getter
     public static class AddMissionDTO {

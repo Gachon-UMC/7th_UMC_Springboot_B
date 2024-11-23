@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import umc.spring.validation.annotation.ExistRegion;
 
-public class StoreRequestDTO {
+public class StoreRequestDTO { // week8 미션
 
     @Getter
     public static class AddStoreDto {

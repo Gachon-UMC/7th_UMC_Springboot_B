@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class MemberCommandServiceImpl implements MemberCommandService{
+public class MemberCommandServiceImpl implements MemberCommandService{ // week8 미션
 
     private final MemberRepository memberRepository;
 

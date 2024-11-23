@@ -13,6 +13,7 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class CategoriesExistValidator implements ConstraintValidator<ExistCategories, List<Long>> { // 여기서 바로 repository에 접근하면 안 됨
+    // week8 미션
 
     private final FoodCategoryRepository foodCategoryRepository;
 
