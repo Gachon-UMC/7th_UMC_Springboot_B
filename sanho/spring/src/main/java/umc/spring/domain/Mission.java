@@ -32,6 +32,18 @@ public class Mission extends BaseEntity {
     @JoinColumn(name = "store_id")
     private Store store;
 
+
     @OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
     private List<MemberMission> memberMissionList = new ArrayList<>();
+
+    //==연관관계 메서드==//
+    public void setStore(Store store) {
+        this.store = store;
+        store.getMisisonList().add(this);
+    }
+
+    public void setMemberMissionList(MemberMission memberMission) {
+        this.memberMissionList.add(memberMission);
+        memberMission.setMission(this);
+    }
 }
