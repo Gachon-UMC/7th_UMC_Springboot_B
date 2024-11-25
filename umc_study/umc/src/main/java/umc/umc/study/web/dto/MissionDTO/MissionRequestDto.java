@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import org.springframework.format.annotation.DateTimeFormat;
+import umc.umc.study.validation.annotation.ExistMission;
 
 import java.time.LocalDateTime;
 
@@ -15,6 +16,8 @@ public class MissionRequestDto {
         Integer clear;
         @NotNull
         Integer store_id;
+
+        @ExistMission
         @NotNull
         Integer id;
 
