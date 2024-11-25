@@ -12,7 +12,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class StoreExistValidator implements ConstraintValidator<ExistStore, List<Long>> { // 여기서 바로 repository에 접근하면 안 됨
+public class StoreExistValidator implements ConstraintValidator<ExistStore, Long> { // 여기서 바로 repository에 접근하면 안 됨
     // week8 미션
     private final StoreRepository storeRepository;
 
@@ -22,16 +22,51 @@ public class StoreExistValidator implements ConstraintValidator<ExistStore, List
     }
 
     @Override
-    public boolean isValid(List<Long> values, ConstraintValidatorContext context) {
-        boolean isValid = values.stream()
-                .allMatch(value -> storeRepository.existsById(value));
+    public boolean isValid(Long value, ConstraintValidatorContext context) {
+//        boolean isValid = values.stream()
+//                .allMatch(value -> storeRepository.existsById(value));
+//
+//        if (!isValid) {
+//            context.disableDefaultConstraintViolation();
+//            context.buildConstraintViolationWithTemplate(ErrorStatus.STORE_NOT_FOUND.toString()).addConstraintViolation();
+//        }
+//
+//        return isValid;
 
-        if (!isValid) {
+
+//        // Store ID가 null이면 검증 실패
+//        if (value == null) {
+//            return false;
+//        }
+//
+//        // StoreRepository를 사용해 존재 여부 검증
+//        return storeRepository.existsById(value);
+
+//        // Store ID가 null이면 검증 실패
+//        if (value == null) {
+//            context.disableDefaultConstraintViolation();
+//            context.buildConstraintViolationWithTemplate(ErrorStatus.STORE_NOT_FOUND.toString()).addConstraintViolation();
+//            return false;
+//        }
+//
+//        // StoreRepository를 사용해 존재 여부 검증
+//        boolean isValid = storeRepository.existsById(value);
+//        if (!isValid) {
+//            context.disableDefaultConstraintViolation();
+//            context.buildConstraintViolationWithTemplate(ErrorStatus.STORE_NOT_FOUND.toString()).addConstraintViolation();
+//        }
+//
+//        return isValid; // 검증 성공
+
+
+        // Store ID가 null이면 검증 실패
+        if (value == null || !storeRepository.existsById(value)) {
             context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate(ErrorStatus.STORE_NOT_FOUND.toString()).addConstraintViolation();
+            context.buildConstraintViolationWithTemplate(ErrorStatus.STORE_NOT_FOUND.toString())
+                    .addConstraintViolation();
+            return false;
         }
 
-        return isValid;
-
+        return true; // 검증 성공
     }
 }
