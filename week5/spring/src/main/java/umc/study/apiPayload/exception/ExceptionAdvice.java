@@ -65,6 +65,17 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(generalException,errorReasonHttpStatus,null,request);
     }
 
+    @ExceptionHandler(RegionNotFoundException.class)
+    public ResponseEntity<Object> handleRegionNotFound(RegionNotFoundException ex, WebRequest request) {
+        return handleExceptionInternal(
+                ex,
+                ErrorStatus.valueOf("_BAD_REQUEST").getReasonHttpStatus(),
+                new HttpHeaders(),
+                ((ServletWebRequest) request).getRequest());
+    }
+
+
+
     private ResponseEntity<Object> handleExceptionInternal(Exception e, ErrorReasonDTO reason,
                                                            HttpHeaders headers, HttpServletRequest request) {
 

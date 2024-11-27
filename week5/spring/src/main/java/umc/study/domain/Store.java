@@ -43,21 +43,7 @@ public class Store {
     private String storeName;
 
     @Column(precision = 10, scale = 2, columnDefinition = "DECIMAL(10, 2) DEFAULT 0.00")
-    private BigDecimal storeScope;
-
-    // 리뷰들의 평균값을 계산하여 storeScope를 업데이트하는 메서드
-    public void updateStoreScope() {
-        if (reviewList.isEmpty()) {
-            this.storeScope = BigDecimal.ZERO;
-        } else {
-            BigDecimal total = BigDecimal.ZERO;
-            for (Review review : reviewList) {
-                total = total.add(new BigDecimal(review.getReviewScope().getValue()));
-            }
-            BigDecimal average = total.divide(new BigDecimal(reviewList.size()), 2, RoundingMode.HALF_UP);
-            this.storeScope = average;
-        }
-    }
+    private BigDecimal storeScope = BigDecimal.ZERO;
 
     @CreatedDate
     @Column(nullable = false, columnDefinition = "DATETIME(6)")
@@ -72,20 +58,61 @@ public class Store {
     @Enumerated(EnumType.STRING)
     private Status status = Status.ACTIVE;
 
-    @OneToMany(mappedBy = "store",cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "store",cascade=CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<Mission> missionList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "store",cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "store",cascade=CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<Review> reviewList = new ArrayList<>();
 
-//    @Override
-//    public String toString() {
-//        return "Store{" +
-//                "id=" + id +
-//                ", name='" + storeName + '\'' +
-//                ", address='" + address + '\'' +
-//                ", score=" + storeScope +
-//                ", region=" + (region != null ? region.getName() : "N/A") + // region의 이름 출력
-//                '}';
-//    }
+    // 리뷰들의 평균값을 계산하여 storeScope를 업데이트하는 메서드
+    public void updateStoreScope() {
+        if (reviewList.isEmpty()) {
+            this.storeScope = BigDecimal.ZERO;
+            return;
+        }
+
+        BigDecimal total = reviewList.stream()
+                .map(review -> new BigDecimal(review.getReviewScope().getValue()))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        BigDecimal average = total.divide(new BigDecimal(reviewList.size()), 2, RoundingMode.HALF_UP);
+        this.storeScope = average;
+    }
+
+    // 리뷰 추가 메서드
+    public void addReview(Review review) {
+        reviewList.add(review);
+        review.setStore(this);
+    }
+
+    // 리뷰 삭제 메서드
+    public void removeReview(Review review) {
+        reviewList.remove(review);
+        review.setStore(null);
+    }
+
+    // 미션 추가 메서드
+    public void addMission(Mission mission) {
+        missionList.add(mission);
+        mission.setStore(this);
+    }
+
+    // 미션 삭제 메서드
+    public void removeMission(Mission mission) {
+        missionList.remove(mission);
+        mission.setStore(null);
+    }
+
+    // 지역 설정 메서드
+    public void setRegion(Region region) {
+        if (this.region != null) {
+            this.region.getStoreList().remove(this);
+        }
+        this.region = region;
+        if (!region.getStoreList().contains(this)) {
+            region.getStoreList().add(this);
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package umc.study.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -33,6 +34,7 @@ public class Review {
     private String reviewImg;
 
     @Column(length = 500)
+    @Size(max = 500, message = "Review content must be 500 characters or less.")
     private String reviewContent;
 
     @Enumerated(EnumType.STRING)
@@ -46,4 +48,24 @@ public class Review {
     @LastModifiedDate
     @Column(nullable = false, columnDefinition = "DATETIME(6)")
     private LocalDateTime updatedAt;
+
+    public void setStore(Store store) {
+        if (this.store != null && this.store.getReviewList() != null) {
+            this.store.getReviewList().remove(this);
+        }
+        this.store = store;
+        if (store != null && !store.getReviewList().contains(this)) {
+            store.getReviewList().add(this);
+        }
+    }
+
+    public void setUser(User user) {
+        if (this.user != null && this.user.getReviewList() != null) {
+            this.user.getReviewList().remove(this);
+        }
+        this.user = user;
+        if (user != null && !user.getReviewList().contains(this)) {
+            user.getReviewList().add(this);
+        }
+    }
 }

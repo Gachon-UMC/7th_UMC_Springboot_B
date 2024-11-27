@@ -2,6 +2,8 @@ package umc.study.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -16,6 +18,8 @@ import java.util.List;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Getter
+@DynamicUpdate
+@DynamicInsert
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -27,9 +31,10 @@ public class User {
     private Long id;
 
     @Column(nullable = false, length = 20)
-    private String user_name;
+    private String userName;
 
-    @Enumerated(EnumType.STRING) // STRING 명시 -> 글자로 판별하겠다 & 만약 명시안하면 그냥 인덱스별로
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false) // Gender는 필수값으로 처리
     private Gender gender;
 
     @Column(nullable = false)
@@ -37,11 +42,11 @@ public class User {
 
     private String userAddress;
 
-    @Column(nullable = false, columnDefinition = "boolean default false")
-    private Boolean userLogin;
+    @Builder.Default
+    private Boolean userLogin = false;
 
-    @Column(nullable = false, columnDefinition = "integer default 0")
-    private Integer userPoint;
+    @Builder.Default
+    private Integer userPoint = 0;
 
     @Enumerated(EnumType.STRING)
     private Status status = Status.ACTIVE;
@@ -62,13 +67,13 @@ public class User {
     @Column(nullable = false, columnDefinition = "DATETIME(6)")
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "user",cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "user",cascade=CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviewList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user",cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "user",cascade=CascadeType.ALL, orphanRemoval = true)
     private List<UserMission> userMissionList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user",cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "user",cascade=CascadeType.ALL, orphanRemoval = true)
     private List<UserFavoriteFoods> userFavoriteFoodsList = new ArrayList<>();
 }
 

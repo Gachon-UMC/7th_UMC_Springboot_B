@@ -6,4 +6,5 @@ import umc.study.repository.StoreRepository.StoreRepositoryCustom;
 
 // 이 놈은 StoreRepository의 근본
 public interface StoreRepository extends JpaRepository<Store, Long>, StoreRepositoryCustom {
+    boolean existsById(Long id); // 추가
 }
