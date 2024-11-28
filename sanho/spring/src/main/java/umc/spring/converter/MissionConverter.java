@@ -30,5 +30,16 @@ public class MissionConverter { // week8 미션
                 .build();
     }
 
+    // week9 미션 - 진행 중인 미션을 진행 완료로 수정하기
+    public static MissionResponseDTO.MemberMissionDTO memberMissionDTO(MemberMission memberMission) {
+        Mission mission = memberMission.getMission();
+
+        return MissionResponseDTO.MemberMissionDTO.builder()
+                .memberName(memberMission.getMember().getName())
+                .missionSpec(mission.getMissionSpec())
+                .reward(mission.getReward())
+                .status(memberMission.getStatus())
+                .build();
+    }
 
 }

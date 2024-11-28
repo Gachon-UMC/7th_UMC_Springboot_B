@@ -11,4 +11,7 @@ public interface MemberMissionRepository extends JpaRepository<MemberMission, Lo
 
     // week9 미션 - 내가 진행 중인 미션 목록
     Page<MemberMission> findAllByMember(Member member, PageRequest pageRequest);
+
+    // week9 미션 - 진행 중인 미션을 진행 완료로 수정하기
+    MemberMission findByMission(Mission mission);
 }
