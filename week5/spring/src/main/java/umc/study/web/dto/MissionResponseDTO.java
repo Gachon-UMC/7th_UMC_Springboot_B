@@ -9,9 +9,12 @@ import java.time.LocalDateTime;
 @Builder
 public class MissionResponseDTO {
     private Long id;
+    private Long storeId;
+//    private String storeName;
     private String missionDescription;
     private Integer missionPoint;
     private LocalDateTime deadline;
-    private Long storeId;
-    private String storeName;
+    private String status;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }

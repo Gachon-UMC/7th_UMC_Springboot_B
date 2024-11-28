@@ -63,6 +63,10 @@ public class Mission {
     @Builder.Default
     private List<UserMission> userMissionList = new ArrayList<>();
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     public void setStore(Store store) {
         if (this.store != null && this.store.getMissionList() != null) {
             this.store.getMissionList().remove(this);

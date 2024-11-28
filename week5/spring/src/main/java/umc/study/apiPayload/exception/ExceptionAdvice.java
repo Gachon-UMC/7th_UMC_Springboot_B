@@ -74,6 +74,17 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
                 ((ServletWebRequest) request).getRequest());
     }
 
+    // 추가
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ApiResponse> handleIllegalArgumentException(IllegalArgumentException e) {
+        return ResponseEntity.badRequest().body(ApiResponse.onFailure("400", e.getMessage(), null));
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<ApiResponse<String>> handleIllegalStateException(IllegalStateException ex) {
+        ApiResponse<String> response = ApiResponse.onFailure("ALREADY_INACTIVE", ex.getMessage(), null);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+    }
 
 
     private ResponseEntity<Object> handleExceptionInternal(Exception e, ErrorReasonDTO reason,

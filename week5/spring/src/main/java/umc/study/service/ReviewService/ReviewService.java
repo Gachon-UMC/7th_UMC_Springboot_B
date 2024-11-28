@@ -1,6 +1,8 @@
 package umc.study.service.ReviewService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import umc.study.converter.ReviewConverter;
@@ -25,10 +27,10 @@ public class ReviewService {
     public ReviewResponseDTO addReviewToStore(ReviewRequestDTO request) {
         // storeId는 DTO에서 검증되므로 다시 확인할 필요 없음
         Store store = storeRepository.findById(request.getStoreId())
-                .orElseThrow(() -> new IllegalArgumentException("Store not found with ID: " + request.getStoreId()));
+                .orElseThrow(() -> new IllegalArgumentException("ID와 함께 가게를 찾지 못함 : " + request.getStoreId()));
 
         User user = userRepository.findById(request.getUserId())
-                .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + request.getUserId()));
+                .orElseThrow(() -> new IllegalArgumentException("ID와 함께 유저를 찾지 못함 : " + request.getUserId()));
 
         Review review = ReviewConverter.toEntity(request, user, store);
         store.addReview(review); // 양방향 관계 설정
@@ -38,5 +40,10 @@ public class ReviewService {
         store.updateStoreScope();
 
         return ReviewConverter.toResponseDTO(review);
+    }
+
+    public Page<ReviewResponseDTO> getMyReviews(Pageable pageable) {
+        return reviewRepository.findAllByUserId(1L, pageable) // 동동(user_id=1) 기준
+                .map(ReviewConverter::toResponseDTO);
     }
 }
