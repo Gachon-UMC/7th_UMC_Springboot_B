@@ -1,6 +1,7 @@
 package umc.spring.converter;
 
 import org.springframework.data.domain.Page;
+import umc.spring.domain.Mission;
 import umc.spring.domain.Region;
 import umc.spring.domain.Review;
 import umc.spring.domain.Store;
@@ -32,7 +33,7 @@ public class StoreConverter { // week8 미션
                 .build();
     }
 
-    // week9 코드 - 미션 목록 조회
+    // week9 코드 - 리뷰 목록 조회
     public static StoreResponseDTO.ReviewPreViewDTO reviewPreViewDTO(Review review){ // 해당 가게 각각의 리뷰 DTO
         return StoreResponseDTO.ReviewPreViewDTO.builder()
                 .ownerNickname(review.getMember().getName())
@@ -53,6 +54,30 @@ public class StoreConverter { // week8 미션
                 .totalElements(reviewPage.getTotalElements())
                 .listSize(reviewPreViewDTOList.size())
                 .reviewList(reviewPreViewDTOList)
+                .build();
+    }
+
+    // week9 미션 - 특정 가게 미션 목록 조회
+    public static StoreResponseDTO.StoreMissionDTO storeMissionDTO(Mission mission) {
+        return StoreResponseDTO.StoreMissionDTO.builder()
+                .storeName(mission.getStore().getName())
+                .missionSpec(mission.getMissionSpec())
+                .reward(mission.getReward())
+                .createdAt(mission.getCreatedAt().toLocalDate())
+                .build();
+    }
+
+    public static StoreResponseDTO.StoreMissionListDTO storeMissionListDTO(Page<Mission> missionPage) {
+        List<StoreResponseDTO.StoreMissionDTO> storeMissionDTOList = missionPage.stream()
+                .map(StoreConverter::storeMissionDTO).collect(Collectors.toList());
+
+        return StoreResponseDTO.StoreMissionListDTO.builder()
+                .isLast(missionPage.isLast())
+                .isFirst(missionPage.isFirst())
+                .totalPage(missionPage.getTotalPages())
+                .totalElements(missionPage.getTotalElements())
+                .listSize(storeMissionDTOList.size())
+                .missionList(storeMissionDTOList)
                 .build();
     }
 }

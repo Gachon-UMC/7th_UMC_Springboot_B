@@ -45,4 +45,31 @@ public class StoreResponseDTO { // week8 미션
         LocalDate createdAt;
     }
 
+    // week9 미션 - 특정 가게 미션 목록
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class StoreMissionDTO {
+        String storeName;
+        String missionSpec;
+        Integer reward;
+        LocalDate createdAt;
+    }
+
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class StoreMissionListDTO {
+        List<StoreMissionDTO> missionList;
+        Integer listSize;
+        Integer totalPage;
+        Long totalElements;
+        Boolean isFirst;
+        Boolean isLast;
+    }
+
+
 }

@@ -14,8 +14,9 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class MemberExistValidator implements ConstraintValidator<ExistMember, List<Long>> { // 여기서 바로 repository에 접근하면 안 됨
-    // week8 미션
+public class MemberExistValidator implements ConstraintValidator<ExistMember, Long> {
+    // week9 미션
+
     private final MemberRepository memberRepository;
 
     @Override
@@ -24,16 +25,16 @@ public class MemberExistValidator implements ConstraintValidator<ExistMember, Li
     }
 
     @Override
-    public boolean isValid(List<Long> values, ConstraintValidatorContext context) {
-        boolean isValid = values.stream()
-                .allMatch(value -> memberRepository.existsById(value));
+    public boolean isValid(Long value, ConstraintValidatorContext context) {
 
-        if (!isValid) {
+        // 멤버 id가 null이거나, 레포지토리에 존재하지 않으면 에러
+        if (value == null || !memberRepository.existsById(value)) {
             context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate(ErrorStatus.MEMBER_NOT_FOUND.toString()).addConstraintViolation();
+            context.buildConstraintViolationWithTemplate(ErrorStatus.MEMBER_NOT_FOUND.toString())
+                    .addConstraintViolation();
+            return false;
         }
 
-        return isValid;
-
+        return true; // 검증 성공
     }
 }
