@@ -15,7 +15,6 @@ import umc.umc.study.apiPayload.ApiResponse;
 import umc.umc.study.converter.ReviewConverter;
 import umc.umc.study.service.StoreService.StoreQueryService;
 import umc.umc.study.service.StoreService.StoreQueryServiceImpl;
-import umc.umc.study.validation.annotation.CheckPage;
 import umc.umc.study.validation.annotation.ExistStore;
 import umc.umc.study.validation.annotation.ExistUserReview;
 import umc.umc.study.web.dto.ReviewDTO.ReviewResponseDto;
@@ -48,7 +47,6 @@ public class ListReviewRestController {
             @Parameter(description = "조회할 페이지 번호 (1 이상)", example = "1")
             @RequestParam(name = "page") Integer page
     ){
-        storeQueryServiceimpl.getReviewList(storeId,page-1);
         return ApiResponse.onSuccess(ReviewConverter.reviewPreViewListDTO(storeQueryServiceimpl.getReviewList(storeId,page)));
     }
 

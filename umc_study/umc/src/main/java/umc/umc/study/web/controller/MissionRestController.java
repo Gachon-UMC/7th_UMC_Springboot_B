@@ -16,7 +16,6 @@ import umc.umc.study.domain.Mission;
 import umc.umc.study.service.MissionService.MissionCommandServiceImpl;
 import umc.umc.study.service.MissionService.MissionQueryServiceImpl;
 import umc.umc.study.service.StoreService.StoreQueryServiceImpl;
-import umc.umc.study.validation.annotation.CheckPage;
 import umc.umc.study.validation.annotation.ExistMission;
 import umc.umc.study.validation.annotation.ExistStore;
 import umc.umc.study.validation.annotation.ExistUsers;
@@ -57,10 +56,7 @@ public class MissionRestController {
     })
     public ApiResponse<MissionResponseDto.MissionPreViewListDTO> getStoreMissionList(
             @ExistStore @PathVariable(name = "storeId") Integer storeId,
-            @Parameter(description = "조회할 페이지 번호 (1 이상)", example = "1")
-            @CheckPage @RequestParam(name = "page") Integer page
     ){
-        missionQueryServiceImpl.getStoreMissionList(storeId,page-1);
         return ApiResponse.onSuccess(MissionConverter.missionPreViewListDTO(missionQueryServiceImpl.getStoreMissionList(storeId,page)));
     }
 
@@ -79,11 +75,7 @@ public class MissionRestController {
     })
     public ApiResponse<MissionResponseDto.MissionPreViewListDTO> getUserMissionList(
             @ExistUsers @PathVariable(name = "userId") Integer userId,
-            @Parameter(description = "조회할 페이지 번호 (1 이상)", example = "1")
-            @CheckPage @RequestParam(name = "page") Integer page
     ){
-        // 1부터 들어오면 0으로 전달해줘야하기때문에
-        missionQueryServiceImpl.getUserMissionList(userId,page-1);
         return ApiResponse.onSuccess(MissionConverter.missionPreViewListDTO(missionQueryServiceImpl.getUserMissionList(userId,page)));
     }
 
