@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import umc.study.domain.Member;
 import umc.study.domain.Mission;
+import umc.study.domain.Store;
 import umc.study.domain.common.BaseEntity;
 
 @Entity
@@ -16,13 +17,17 @@ public class MemberMission extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "mission_id")
     private Mission mission;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "store_id")
+    private Store store;
 
     public void setMission(Mission mission){
         this.mission = mission;

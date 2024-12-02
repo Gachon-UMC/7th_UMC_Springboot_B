@@ -19,31 +19,31 @@ import java.util.List;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Mission extends BaseEntity {
+
+public class Mission extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Integer reward;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "store_id", nullable = false)
+    private Store store;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
+
+    @Column(nullable = false)
+    private Integer reward;
 
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(15) DEFAULT 'CHALLENGING'")
     private MissionStatus missionStatus;
 
-
     private LocalDateTime deadline;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id")
-    private Store store;
-
     @OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
-    private List<MemberMission> memberMissionList = new ArrayList<>();
+    private final List<MemberMission> memberMissionList = new ArrayList<>();
 
-
-
+    // getters, setters, constructors
 }

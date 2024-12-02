@@ -14,11 +14,24 @@ spring:
         show_sql: true
         format_sql: true
         use_sql_comments: true
+        logging:
+          level:
+            org:
+              hibernate:
+                SQL=DEBUG:
+                type:
+                  descriptor:
+                    sql:
+                      BasicBinder=TRACE
         hbm2ddl:
-          auto: create
+          auto: update
         default_batch_fetch_size: 1000
-#  springdoc:
-#    api-docs:
-#      enabled: true
-#    swagger-ui:
-#      enabled: true
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
+  security-scheme:
+    name: Authorization
+    type: http
+    scheme: bearer

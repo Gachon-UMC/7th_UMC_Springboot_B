@@ -30,11 +30,11 @@ public class Store extends BaseEntity {
     @Column(nullable = false, length = 20)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "region_id")
     private Region region;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "food_id")
     private FoodCategory foodCategory;
 

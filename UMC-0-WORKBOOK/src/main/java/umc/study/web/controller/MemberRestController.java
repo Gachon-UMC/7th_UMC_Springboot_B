@@ -26,11 +26,13 @@ import umc.study.web.dto.MemberDTO.MemberRequestDTO;
 import umc.study.web.dto.MemberDTO.MemberResponseDTO;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
 @Validated
 @RequestMapping("/members")
+@CrossOrigin(origins = "http://localhost:8080") // 필요한 프론트엔드 URL 설정
 public class MemberRestController {
     private final MemberCommandService memberCommandService;
 
@@ -53,16 +55,25 @@ public class MemberRestController {
     @Parameters({
             @Parameter(name = "memberId", description = "회원의 아이디, path variable 입니다!")
     })
-    public ApiResponse<MemberResponseDTO.MyReviewPreviewListDTO> getMyReviewList(
-            @ExistMember @PathVariable(name = "memberId") Long memberId,
-            @CheckPage @RequestParam(name = "page") Integer page
-    ){
-        int zeroBasedPage = page - 1;  // page1을 0으로 만들어 return
+    public ApiResponse<MemberResponseDTO.MyReviewPreviewListDTO> getMyReviewList(Long memberId, Integer page) {
+        Page<Review> reviews = memberQueryService.getMyReviewList(memberId, page - 1);
+        List<MemberResponseDTO.MyReviewPreviewDTO> reviewDTOs = reviews.stream()
+                .map(review -> new MemberResponseDTO.MyReviewPreviewDTO(
+                        review.getMember().getName(), review.getRating(), review.getContent(), review.getCreatedAt().toLocalDate()))
+                .collect(Collectors.toList());
 
-        Page<Review> myReviewList = memberQueryService.getMyReviewList(memberId, zeroBasedPage);
-        return ApiResponse.onSuccess(MemberConverter.myReviewPreviewListDTO(myReviewList));
+        return ApiResponse.onSuccess(new MemberResponseDTO.MyReviewPreviewListDTO(
+                reviewDTOs, reviews.getSize(), reviews.getTotalPages(), reviews.getTotalElements(),
+                reviews.isFirst(), reviews.isLast()));
     }
-
-
+//     public ApiResponse<MemberResponseDTO.MyReviewPreviewListDTO> getMyReviewList(
+//            @ExistMember @PathVariable(name = "memberId") Long memberId,
+//            @CheckPage @RequestParam(name = "page") Integer page
+//    ){
+//        int zeroBasedPage = page - 1;  // page1을 0으로 만들어 return
+//
+//        Page<Review> myReviewList = memberQueryService.getMyReviewList(memberId, zeroBasedPage);
+//        return ApiResponse.onSuccess(MemberConverter.myReviewPreviewListDTO(myReviewList));
+//    }
 
 }

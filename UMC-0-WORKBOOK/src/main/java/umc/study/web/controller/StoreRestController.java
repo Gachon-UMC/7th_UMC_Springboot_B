@@ -28,6 +28,7 @@ import umc.study.web.dto.StoreDTO.StoreResponseDTO;
 @RequiredArgsConstructor
 @Validated
 @RequestMapping("/stores")
+@CrossOrigin(origins = "http://localhost:8080") // 필요한 프론트엔드 URL 설정
 public class StoreRestController {
     private final StoreCommandService storeCommandService;
 
@@ -57,7 +58,7 @@ public class StoreRestController {
         @RequestParam(name = "page") Integer page
         ){
 
-        Page<Review> reviewList = storeQueryService.getReviewList(storeId, page);
+        Page<Review> reviewList = storeQueryService.getReviewList(storeId, page-1);
         return ApiResponse.onSuccess(StoreConverter.reviewPreviewListDTO(reviewList));
     }
 
@@ -78,7 +79,7 @@ public class StoreRestController {
             @CheckPage @RequestParam(name = "page") Integer page
     ){
 
-        Page<Mission> missionList = storeQueryService.getMissionList(storeId, page);
+        Page<Mission> missionList = storeQueryService.getMissionList(storeId, page - 1);
         return ApiResponse.onSuccess(StoreConverter.missionPreviewListDTO(missionList));
     }
 

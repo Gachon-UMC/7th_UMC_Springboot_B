@@ -25,7 +25,7 @@ public class Question extends BaseEntity {
     @Column(columnDefinition = "VARCHAR(15) DEFAULT 'NOT_DELETED'")
     private DelYN delYN;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "member_id")
     private Member member;
 

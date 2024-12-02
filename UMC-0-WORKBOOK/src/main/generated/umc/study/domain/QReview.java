@@ -35,8 +35,6 @@ public class QReview extends EntityPathBase<Review> {
 
     public final NumberPath<Float> rating = createNumber("rating", Float.class);
 
-    public final ListPath<ReviewReply, QReviewReply> reviewReplyList = this.<ReviewReply, QReviewReply>createList("reviewReplyList", ReviewReply.class, QReviewReply.class, PathInits.DIRECT2);
-
     public final QStore store;
 
     //inherited

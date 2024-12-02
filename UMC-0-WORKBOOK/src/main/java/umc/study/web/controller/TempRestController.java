@@ -1,10 +1,7 @@
 package umc.study.web.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import umc.study.apiPayload.ApiResponse;
 import umc.study.converter.TempConverter;
 import umc.study.service.TempService.TempQueryService;
@@ -13,6 +10,7 @@ import umc.study.web.dto.TempDTO.TempResponse;
 @RestController
 @RequestMapping("/temp")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:8080") // 필요한 프론트엔드 URL 설정
 public class TempRestController {
 
     private final TempQueryService tempQueryService;

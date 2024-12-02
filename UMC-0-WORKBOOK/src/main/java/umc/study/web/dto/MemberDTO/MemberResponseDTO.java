@@ -46,5 +46,4 @@ public class MemberResponseDTO {
         String content;
         LocalDate createdAt;
     }
-
 }

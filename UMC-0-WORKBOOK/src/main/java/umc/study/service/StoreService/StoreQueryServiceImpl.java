@@ -50,14 +50,19 @@ public class StoreQueryServiceImpl implements StoreQueryService{
         return storePage;
     }
 
+//    @Override
+//    public Page<Mission> getMissionList(Long storeId, Integer page){
+//
+//        Store store = storeRepository.findById(storeId).get();
+//
+//        Page<Mission> storePage = missionRepository.findAllByStore(store, PageRequest.of(page, 10));
+//
+//        return storePage;
+//    }
     @Override
-    public Page<Mission> getMissionList(Long storeId, Integer page){
-
-        Store store = storeRepository.findById(storeId).get();
-
-        Page<Mission> storePage = missionRepository.findAllByStore(store, PageRequest.of(page, 10));
-
-        return storePage;
+    public Page<Mission> getMissionList(Long storeId, Integer page) {
+        Store store = storeRepository.findById(storeId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 가게가 존재하지 않습니다."));
+        return missionRepository.findAllByStore(store, PageRequest.of(page, 10));
     }
-
 }

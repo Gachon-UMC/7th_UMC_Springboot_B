@@ -33,6 +33,8 @@ public class QMemberMission extends EntityPathBase<MemberMission> {
 
     public final umc.study.domain.QMission mission;
 
+    public final umc.study.domain.QStore store;
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 
@@ -56,6 +58,7 @@ public class QMemberMission extends EntityPathBase<MemberMission> {
         super(type, metadata, inits);
         this.member = inits.isInitialized("member") ? new umc.study.domain.QMember(forProperty("member")) : null;
         this.mission = inits.isInitialized("mission") ? new umc.study.domain.QMission(forProperty("mission"), inits.get("mission")) : null;
+        this.store = inits.isInitialized("store") ? new umc.study.domain.QStore(forProperty("store"), inits.get("store")) : null;
     }
 
 }

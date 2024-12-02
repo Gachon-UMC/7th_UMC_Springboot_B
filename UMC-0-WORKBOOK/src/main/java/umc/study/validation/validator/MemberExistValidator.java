@@ -21,23 +21,35 @@ public class MemberExistValidator implements ConstraintValidator<ExistMember, Lo
         ConstraintValidator.super.initialize(constraintAnnotation);
     }
 
+//    @Override
+//    public boolean isValid(Long value, ConstraintValidatorContext context) {
+//        // 값이 null인 경우 유효성 검증을 실패로 처리
+//        if (value == null) {
+//            context.disableDefaultConstraintViolation();
+//            context.buildConstraintViolationWithTemplate("memberId cannot be null").addConstraintViolation();
+//            return false;
+//        }
+//
+//        // 회원 존재 여부 확인
+//        boolean isValid = memberRepository.existsById(value);
+//
+//        if (!isValid) {
+//            context.disableDefaultConstraintViolation();
+//            context.buildConstraintViolationWithTemplate(ErrorStatus.MEMBER_NOT_FOUND.toString()).addConstraintViolation();
+//        }
+//
+//        return isValid;
+//    }
+
     @Override
     public boolean isValid(Long value, ConstraintValidatorContext context) {
-        // 값이 null인 경우 유효성 검증을 실패로 처리
-        if (value == null) {
+        if (value == null || !memberRepository.existsById(value)) {
             context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate("memberId cannot be null").addConstraintViolation();
+            context.buildConstraintViolationWithTemplate(
+                    context.getDefaultConstraintMessageTemplate()
+            ).addConstraintViolation();
             return false;
         }
-
-        // 회원 존재 여부 확인
-        boolean isValid = memberRepository.existsById(value);
-
-        if (!isValid) {
-            context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate(ErrorStatus.MEMBER_NOT_FOUND.toString()).addConstraintViolation();
-        }
-
-        return isValid;
+        return true;
     }
 }

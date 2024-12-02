@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import umc.study.domain.Store;
+import umc.study.repository.StoreRepository.StoreRepository;
 import umc.study.service.StoreService.StoreQueryService;
 
 @SpringBootApplication
@@ -19,13 +21,21 @@ public class StudyApplication {
 	@Bean
 	public CommandLineRunner run(ApplicationContext context) {
 		return args -> {
+			StoreRepository storeRepository = context.getBean(StoreRepository.class);
 			StoreQueryService storeService = context.getBean(StoreQueryService.class);
 
-			// 파라미터 값 설정
+			// 더미 데이터 저장
+			Store dummyStore = Store.builder()
+					.name("요아정")
+					.address("서울특별시")
+					.rating(4.5f)
+					.build();
+			storeRepository.save(dummyStore);
+
+			// 쿼리 실행
 			String name = "요아정";
 			Float rating = 4.0f;
 
-			// 쿼리 메서드 호출 및 쿼리 문자열과 파라미터 출력
 			System.out.println("Executing findStoresByNameAndScore with parameters:");
 			System.out.println("Name: " + name);
 			System.out.println("Rating: " + rating);
@@ -33,6 +43,5 @@ public class StudyApplication {
 			storeService.findStoresByNameAndScore(name, rating)
 					.forEach(System.out::println);
 		};
-
 	}
 }

@@ -32,4 +32,15 @@ public class CheckPageValidator implements ConstraintValidator<CheckPage, Intege
     }
 
 
+//    @Override
+//    public boolean isValid(Integer page, ConstraintValidatorContext context) {
+//        if (page == null || page < 1) {
+//            context.disableDefaultConstraintViolation();
+//            context.buildConstraintViolationWithTemplate(
+//                    context.getDefaultConstraintMessageTemplate()
+//            ).addConstraintViolation();
+//            return false;
+//        }
+//        return true;
+//    }
 }

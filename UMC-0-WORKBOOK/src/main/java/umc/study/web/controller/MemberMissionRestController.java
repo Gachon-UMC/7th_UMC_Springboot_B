@@ -24,6 +24,7 @@ import umc.study.web.dto.MemberMissionDTO.MemberMissionResponseDTO;
 @RequiredArgsConstructor
 @Validated
 @RequestMapping("/memberMissions")
+@CrossOrigin(origins = "http://localhost:8080") // 필요한 프론트엔드 URL 설정
 public class MemberMissionRestController {
 
     private final MemberQueryService memberQueryService;
@@ -40,7 +41,7 @@ public class MemberMissionRestController {
             @Parameter(name = "memberId", description = "회원의 아이디, path variable 입니다!")
     })
     public ApiResponse<MemberMissionResponseDTO.MemberMissionPreviewListDTO> getMemberMissionList(@PathVariable(name = "memberId") Long memberId, @CheckPage @RequestParam(name = "page") Integer page){
-        Page<MemberMission> memberMissionList = memberQueryService.getMemberMissionList(memberId, page);
+        Page<MemberMission> memberMissionList = memberQueryService.getMemberMissionList(memberId, page - 1);
 
         return ApiResponse.onSuccess(MemberMissionConverter.memberMissionPreviewListDTO(memberMissionList));
     }

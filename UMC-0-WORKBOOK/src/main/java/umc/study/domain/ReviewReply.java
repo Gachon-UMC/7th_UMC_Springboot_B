@@ -20,11 +20,11 @@ public class ReviewReply extends BaseEntity {
     @Column(nullable = false, length = 20)
     private String title;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "review_id")
     private Review review;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "member_id")
     private Member member;
 }
