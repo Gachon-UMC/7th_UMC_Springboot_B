@@ -19,7 +19,6 @@ public class MemberQueryServiceImpl implements MemberQueryService{
 
     private final MemberRepository memberRepository;
     private final ReviewRepository reviewRepository;
-    private final MissionRepository missionRepository;
     private final MemberMissionRepository memberMissionRepository;
 
     // week9 미션 - 특정 멤버 리뷰 조회
