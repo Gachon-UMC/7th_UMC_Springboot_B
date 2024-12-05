@@ -1,6 +1,7 @@
 package umc.study.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -8,6 +9,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import umc.study.domain.enums.Gender;
+import umc.study.domain.enums.Role;
 import umc.study.domain.enums.Status;
 
 import java.time.LocalDate;
@@ -37,7 +39,7 @@ public class User {
     @Column(nullable = false) // Gender는 필수값으로 처리
     private Gender gender;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private LocalDate userBirth;
 
     private String userAddress;
@@ -55,6 +57,12 @@ public class User {
 
     @Column(unique = true)
     private String userEmail;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Column(unique = true)
     private String userPhone;
@@ -75,6 +83,14 @@ public class User {
 
     @OneToMany(mappedBy = "user",cascade=CascadeType.ALL, orphanRemoval = true)
     private List<UserFavoriteFoods> userFavoriteFoodsList = new ArrayList<>();
+
+    public void encodePassword(String password) {
+        this.password = password;
+    }
+
+//    public String getEmail() {
+//        return this.userEmail;
+//    }
 }
 
 

@@ -30,7 +30,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
 	// Jakarta Servlet API (Spring Boot 3.x 호환)
-	implementation 'jakarta.servlet:jakarta.servlet-api:5.0.0'
+//	implementation 'jakarta.servlet:jakarta.servlet-api:5.0.0'
 
 	implementation 'mysql:mysql-connector-java:8.0.33'  // MySQL 드라이버 추가
 
@@ -51,10 +51,16 @@ dependencies {
 
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
+//	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
 	// ANTLR 툴과 런타임 버전이 맞추깅
 	implementation 'org.antlr:antlr4:4.13.0'
+
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	testImplementation 'org.springframework.security:spring-security-test'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
 }
 

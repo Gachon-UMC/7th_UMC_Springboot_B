@@ -1,6 +1,7 @@
 package umc.study.service.UserService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import umc.study.apiPayload.code.status.ErrorStatus;
@@ -27,11 +28,15 @@ public class UserCommandServiceImpl implements UserCommandService {
 
     private final FoodRepository foodRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Override
     @Transactional
     public User joinUser(UserRequestDTO.JoinDto request) {
 
         User user = UserConverter.toUser(request);
+
+        user.encodePassword(passwordEncoder.encode(request.getPassword()));
 
         List<Food> foodList = request.getFavoriteFoodIds().stream()
                 .map(categoryId ->
@@ -43,7 +48,9 @@ public class UserCommandServiceImpl implements UserCommandService {
 
         userFavoriteFoodsList.forEach(userFavoriteFoods -> {userFavoriteFoods.setUser(user);});
 
-        return userRepository.save(user);
+        userRepository.save(user);
+
+        return user;
 
     }
 

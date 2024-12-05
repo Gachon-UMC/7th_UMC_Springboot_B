@@ -31,9 +31,12 @@ public class UserConverter {
         return User.builder()
                 .userAddress(request.getUserAddress())
                 .gender(gender)
-                .userName(request.getName())
+                .userName(request.getUserName())
+                .userEmail(request.getUserEmail())
+                .password(request.getPassword())
                 .userBirth(request.getUserBirth()) // 생일 추가 매핑
                 .userFavoriteFoodsList(new ArrayList<>())
+                .role(request.getRole())
                 .build();
     }
 
