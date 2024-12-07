@@ -44,5 +44,20 @@ public class MissionQueryServiceImpl implements MissionQueryService {
         return UserPage;
     }
 
+    @Override
+    public Mission patchUserMission(Integer user_id, Long mission_id) {
+        Users users = usersRepository.findById(user_id).get();
+
+        Mission mission = users.getMission();
+
+        if (mission.getId().equals(mission_id)){
+            mission.setMissionStatus(1,mission.getTitle(),mission.getStore().getId());
+            return mission.getUsers().getMission_status();
+        } else{
+            return null;
+        }
+
+    }
+
 
 }

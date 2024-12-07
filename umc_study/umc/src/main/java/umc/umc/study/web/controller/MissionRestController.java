@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.Fetch;
 import org.springframework.web.bind.annotation.*;
 import umc.umc.study.apiPayload.ApiResponse;
 import umc.umc.study.converter.MissionConverter;
@@ -82,6 +83,25 @@ public class MissionRestController {
             @CheckPage @RequestParam(name = "page") Integer page
     ){
         return ApiResponse.onSuccess(MissionConverter.missionPreViewListDTO(missionQueryServiceImpl.getUserMissionList(userId,page-1)));
+    }
+
+
+    @PatchMapping("/{userId}/{missionID}/users")
+    @Operation(summary = "특정 유저의 미션을 진행 완료로 바꾸기",description = "특정 유저의 미션 상태를 바꿔 줍니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200",description = "OK, 성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH003", description = "access 토큰을 주세요!",content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH004", description = "acess 토큰 만료",content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH006", description = "acess 토큰 모양이 이상함",content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+    })
+    @Parameters({
+            @Parameter(name = "userId", description = "가게의 아이디, path variable 입니다!")
+    })
+    public ApiResponse<MissionResponseDto.MissionPreViewListDTO> patchUserMission(
+            @ExistUsers @PathVariable(name = "userId") Integer userId,
+            @ExistMission @PathVariable(name = "missionID") Integer missionID
+    ){
+        return ApiResponse.onSuccess(MissionConverter.missionPreViewListDTO(missionQueryServiceImpl.getUserMissionList(userId,missionID)));
     }
 
 }

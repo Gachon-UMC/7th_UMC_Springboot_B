@@ -21,7 +21,7 @@ public class MissionCommandServiceImpl {
     public Mission joinMission(MissionRequestDto.JoinDto request) {
 
         Mission newMission = MissionConverter.toMission(request);
-        newMission.setMissionStatus(0,"1000원 이상 쓰기",1);
+        newMission.setMissionStatus(0,"1000원 이상 쓰기",Long.valueOf(1));
 
         return missionRepository.save(newMission);
     }

@@ -40,7 +40,7 @@ public class Mission {
     @JoinColumn(name="ms_id")
     private Point point;
 
-    public void setMissionStatus(Integer clear, String title, Integer store_id) {
+    public void setMissionStatus(Integer clear, String title, Long store_id) {
         this.clear = clear;
         this.title = title;
 
